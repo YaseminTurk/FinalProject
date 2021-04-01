@@ -29,11 +29,13 @@ namespace WebAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //services.AddTransient(); datada
-            //services.AddScoped(); datada
+            //services.AddTransient(); datada kullanýlýr
+            //services.AddScoped(); datada kullanýlýr
+
             services.AddControllers();
-            services.AddSingleton<IProductService, ProductManager>();  //biri constructorda IProductService isterse ona ProductManager ver.
-            services.AddSingleton<IProductDal, EfProductDal>();
+
+            //services.AddSingleton<IProductService, ProductManager>();  //biri constructorda IProductService isterse ona ProductManager ver.
+            //services.AddSingleton<IProductDal, EfProductDal>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
