@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Business.BusinessAspects.Autofac;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
@@ -26,6 +27,13 @@ namespace Business.Concrete
             _categoryService = categoryService;
         }
 
+
+        //salting --tuzlama , kullanıcının girdiği şifreye ekleme yaparız.
+        //encryption -- ilgili data encript edilir. Tekrar çözülebilir.
+        //hashing -- verilerin görünmemesi için hashleme yapılır.(şifreleme algoritmaları kullanılarak geri dönüşü olmayacak şekilde şifrelenir.)
+        //claim--iddia etmek
+
+        [SecuredOperation("product.add,admin")]
         [ValidationAspect(typeof(ProductValidator))]
         public IResult Add(Product product)
         {
