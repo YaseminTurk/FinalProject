@@ -2,6 +2,9 @@
 using Business.BusinessAspects.Autofac;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Caching;
+using Core.Aspects.Autofac.Performance;
+using Core.Aspects.Autofac.Transaction;
 using Core.Aspects.Autofac.Validation;
 using Core.CrossCuttingConcerns.Validation;
 using Core.Utilities.Business;
@@ -67,6 +70,8 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Product>> (_productDal.GetAll(p => p.CategoryId == id));
         }
 
+        [CacheAspect]
+        [PerformanceAspect(5)]
         public IDataResult<Product> GetById(int productId)
         {
             return new SuccessDataResult<Product>(_productDal.Get(p=>p.ProductId==productId));
@@ -88,6 +93,12 @@ namespace Business.Concrete
 
         [ValidationAspect(typeof(ProductValidator))]
         public IResult Update(Product product)
+        {
+            throw new NotImplementedException();
+        }
+
+        [TransactionScopeAspect]
+        public IResult AddTransactionalTest(Product product)
         {
             throw new NotImplementedException();
         }
@@ -122,6 +133,6 @@ namespace Business.Concrete
             return new SuccessResult();
         }
 
-
+        
     }
 }
